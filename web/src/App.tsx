@@ -48,7 +48,7 @@ function playBeep() {
   gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.8);
   osc2.stop(ctx.currentTime + 1.8);
 
-  // Third beep
+  // Third beep (higher pitch)
   const osc3 = ctx.createOscillator();
   const gain3 = ctx.createGain();
   osc3.connect(gain3);
@@ -76,19 +76,20 @@ function getSavedDuration(): number {
 }
 
 const btnBase: React.CSSProperties = {
-  borderRadius: "0.75rem",
-  border: "1px solid var(--line)",
+  borderRadius: "var(--radius-btn)",
+  border: "1px solid var(--color-line)",
   padding: "0.5rem 1rem",
   cursor: "pointer",
   fontWeight: 600,
   fontSize: "0.875rem",
   transition: "background 0.15s, border-color 0.15s",
+  fontFamily: "inherit",
 };
 
-export default function App() {
+export function App() {
   const [tab, setTab] = useState<Tab>("stopwatch");
 
-  // ── Stopwatch state ──
+  // -- Stopwatch state --
   const [swRunning, setSwRunning] = useState(false);
   const [swElapsed, setSwElapsed] = useState(0);
   const [laps, setLaps] = useState<number[]>([]);
@@ -125,12 +126,12 @@ export default function App() {
     }
   };
 
-  // ── Timer state ──
+  // -- Timer state --
   const [tmDuration, setTmDuration] = useState(getSavedDuration); // in seconds
   const [tmRemaining, setTmRemaining] = useState(0); // in ms
   const [tmRunning, setTmRunning] = useState(false);
   const [tmDone, setTmDone] = useState(false);
-  const [tmStarted, setTmStarted] = useState(false); // has countdown been initiated
+  const [tmStarted, setTmStarted] = useState(false);
   const tmEnd = useRef(0);
   const tmRaf = useRef(0);
   const [customMin, setCustomMin] = useState("");
@@ -220,9 +221,9 @@ export default function App() {
         <div
           style={{
             display: "flex",
-            background: "var(--panel)",
-            borderRadius: "0.75rem",
-            border: "1px solid var(--line)",
+            background: "var(--color-panel)",
+            borderRadius: "var(--radius-btn)",
+            border: "1px solid var(--color-line)",
             overflow: "hidden",
           }}
         >
@@ -237,8 +238,8 @@ export default function App() {
                 cursor: "pointer",
                 fontWeight: 600,
                 fontSize: "0.875rem",
-                background: tab === t ? "var(--accent)" : "transparent",
-                color: tab === t ? "#fff" : "var(--muted)",
+                background: tab === t ? "var(--color-accent)" : "transparent",
+                color: tab === t ? "#fff" : "var(--color-muted)",
                 transition: "background 0.15s, color 0.15s",
                 fontFamily: "inherit",
               }}
@@ -248,7 +249,7 @@ export default function App() {
           ))}
         </div>
 
-        {/* ── Stopwatch Tab ── */}
+        {/* -- Stopwatch Tab -- */}
         {tab === "stopwatch" && (
           <div
             style={{
@@ -261,11 +262,11 @@ export default function App() {
             {/* Time display */}
             <div
               style={{
-                fontFamily: "Fraunces, serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "4rem",
                 fontWeight: 700,
                 letterSpacing: "-0.02em",
-                color: "var(--ink)",
+                color: "var(--color-ink)",
                 fontVariantNumeric: "tabular-nums",
               }}
             >
@@ -279,9 +280,9 @@ export default function App() {
                   onClick={handleSwStart}
                   style={{
                     ...btnBase,
-                    background: "var(--accent)",
+                    background: "var(--color-accent)",
                     color: "#fff",
-                    borderColor: "var(--accent)",
+                    borderColor: "var(--color-accent)",
                   }}
                 >
                   {swElapsed > 0 ? "Resume" : "Start"}
@@ -292,9 +293,9 @@ export default function App() {
                     onClick={handleSwStop}
                     style={{
                       ...btnBase,
-                      background: "var(--error)",
+                      background: "#dc2626",
                       color: "#fff",
-                      borderColor: "var(--error)",
+                      borderColor: "#dc2626",
                     }}
                   >
                     Stop
@@ -303,21 +304,21 @@ export default function App() {
                     onClick={handleLap}
                     style={{
                       ...btnBase,
-                      background: "var(--panel)",
-                      color: "var(--ink)",
+                      background: "var(--color-panel)",
+                      color: "var(--color-ink)",
                     }}
                   >
                     Lap
                   </button>
                 </>
               )}
-              {(swElapsed > 0 && !swRunning) && (
+              {swElapsed > 0 && !swRunning && (
                 <button
                   onClick={handleSwReset}
                   style={{
                     ...btnBase,
-                    background: "var(--panel)",
-                    color: "var(--muted)",
+                    background: "var(--color-panel)",
+                    color: "var(--color-muted)",
                   }}
                 >
                   Reset
@@ -330,7 +331,7 @@ export default function App() {
               <div
                 style={{
                   width: "100%",
-                  borderTop: "1px solid var(--line)",
+                  borderTop: "1px solid var(--color-line)",
                   paddingTop: "1rem",
                 }}
               >
@@ -338,7 +339,7 @@ export default function App() {
                   style={{
                     fontSize: "0.75rem",
                     fontWeight: 600,
-                    color: "var(--muted)",
+                    color: "var(--color-muted)",
                     marginBottom: "0.5rem",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
@@ -360,12 +361,12 @@ export default function App() {
                         display: "flex",
                         justifyContent: "space-between",
                         padding: "0.5rem 0.75rem",
-                        background: "var(--panel)",
-                        borderRadius: "0.75rem",
+                        background: "var(--color-panel)",
+                        borderRadius: "var(--radius-btn)",
                         fontSize: "0.875rem",
                       }}
                     >
-                      <span style={{ color: "var(--muted)" }}>
+                      <span style={{ color: "var(--color-muted)" }}>
                         Lap {laps.length - i}
                       </span>
                       <span
@@ -384,7 +385,7 @@ export default function App() {
           </div>
         )}
 
-        {/* ── Timer Tab ── */}
+        {/* -- Timer Tab -- */}
         {tab === "timer" && (
           <div
             style={{
@@ -397,11 +398,11 @@ export default function App() {
             {/* Time display */}
             <div
               style={{
-                fontFamily: "Fraunces, serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "4rem",
                 fontWeight: 700,
                 letterSpacing: "-0.02em",
-                color: tmDone ? "var(--error)" : "var(--ink)",
+                color: tmDone ? "#dc2626" : "var(--color-ink)",
                 fontVariantNumeric: "tabular-nums",
               }}
             >
@@ -411,7 +412,7 @@ export default function App() {
             {tmDone && (
               <div
                 style={{
-                  color: "var(--error)",
+                  color: "#dc2626",
                   fontWeight: 600,
                   fontSize: "1.125rem",
                 }}
@@ -427,9 +428,9 @@ export default function App() {
                   onClick={handleTmStart}
                   style={{
                     ...btnBase,
-                    background: "var(--accent)",
+                    background: "var(--color-accent)",
                     color: "#fff",
-                    borderColor: "var(--accent)",
+                    borderColor: "var(--color-accent)",
                     opacity: (tmStarted ? tmRemaining : tmDuration) <= 0 ? 0.5 : 1,
                   }}
                   disabled={(tmStarted ? tmRemaining : tmDuration) <= 0}
@@ -441,9 +442,9 @@ export default function App() {
                   onClick={handleTmPause}
                   style={{
                     ...btnBase,
-                    background: "var(--warning)",
+                    background: "var(--color-accent)",
                     color: "#fff",
-                    borderColor: "var(--warning)",
+                    borderColor: "var(--color-accent)",
                   }}
                 >
                   Pause
@@ -454,8 +455,8 @@ export default function App() {
                   onClick={handleTmReset}
                   style={{
                     ...btnBase,
-                    background: "var(--panel)",
-                    color: "var(--muted)",
+                    background: "var(--color-panel)",
+                    color: "var(--color-muted)",
                   }}
                 >
                   Reset
@@ -482,14 +483,14 @@ export default function App() {
                         ...btnBase,
                         background:
                           tmDuration === p.seconds
-                            ? "var(--accent)"
-                            : "var(--panel)",
+                            ? "var(--color-accent)"
+                            : "var(--color-panel)",
                         color:
-                          tmDuration === p.seconds ? "#fff" : "var(--ink)",
+                          tmDuration === p.seconds ? "#fff" : "var(--color-ink)",
                         borderColor:
                           tmDuration === p.seconds
-                            ? "var(--accent)"
-                            : "var(--line)",
+                            ? "var(--color-accent)"
+                            : "var(--color-line)",
                       }}
                     >
                       {p.label}
@@ -518,16 +519,16 @@ export default function App() {
                     style={{
                       width: "4rem",
                       padding: "0.5rem",
-                      borderRadius: "0.75rem",
-                      border: "1px solid var(--line)",
-                      background: "var(--panel)",
-                      color: "var(--ink)",
+                      borderRadius: "var(--radius-btn)",
+                      border: "1px solid var(--color-line)",
+                      background: "var(--color-panel)",
+                      color: "var(--color-ink)",
                       textAlign: "center",
                       fontSize: "0.875rem",
                       fontFamily: "inherit",
                     }}
                   />
-                  <span style={{ color: "var(--muted)", fontWeight: 600 }}>
+                  <span style={{ color: "var(--color-muted)", fontWeight: 600 }}>
                     :
                   </span>
                   <input
@@ -543,10 +544,10 @@ export default function App() {
                     style={{
                       width: "4rem",
                       padding: "0.5rem",
-                      borderRadius: "0.75rem",
-                      border: "1px solid var(--line)",
-                      background: "var(--panel)",
-                      color: "var(--ink)",
+                      borderRadius: "var(--radius-btn)",
+                      border: "1px solid var(--color-line)",
+                      background: "var(--color-panel)",
+                      color: "var(--color-ink)",
                       textAlign: "center",
                       fontSize: "0.875rem",
                       fontFamily: "inherit",
@@ -556,8 +557,8 @@ export default function App() {
                     onClick={handleCustomSet}
                     style={{
                       ...btnBase,
-                      background: "var(--panel)",
-                      color: "var(--ink)",
+                      background: "var(--color-panel)",
+                      color: "var(--color-ink)",
                     }}
                   >
                     Set
