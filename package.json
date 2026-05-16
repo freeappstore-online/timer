@@ -2,10 +2,21 @@
   "name": "freetimerapp",
   "private": true,
   "packageManager": "pnpm@10.30.3",
-  "engines": { "node": ">=22" },
-  "pnpm": { "onlyBuiltDependencies": ["esbuild"] },
+  "engines": {
+    "node": ">=22"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "scripts": {
     "dev": "pnpm --filter @freetimerapp/web dev",
-    "build": "pnpm --filter @freetimerapp/web build"
+    "build": "pnpm --filter @freetimerapp/web build",
+    "test": "pnpm --filter @timer/web exec tsc -b"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeappstore-online/timer.git"
   }
 }
