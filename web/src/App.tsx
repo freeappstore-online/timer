@@ -262,7 +262,7 @@ export function App() {
             {/* Time display */}
             <div
               style={{
-                fontFamily: "var(--font-display)",
+                fontFamily: "Fraunces, Georgia, serif",
                 fontSize: "4rem",
                 fontWeight: 700,
                 letterSpacing: "-0.02em",
@@ -398,7 +398,7 @@ export function App() {
             {/* Time display */}
             <div
               style={{
-                fontFamily: "var(--font-display)",
+                fontFamily: "Fraunces, Georgia, serif",
                 fontSize: "4rem",
                 fontWeight: 700,
                 letterSpacing: "-0.02em",

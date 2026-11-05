@@ -13,7 +13,8 @@
   "scripts": {
     "dev": "pnpm --filter @freetimerapp/web dev",
     "build": "pnpm --filter @freetimerapp/web build",
-    "test": "pnpm --filter @timer/web exec tsc -b"
+    "typecheck": "pnpm --filter @freetimerapp/web exec tsc -b",
+    "test": "pnpm --filter @freetimerapp/web exec tsc -b"
   },
   "repository": {
     "type": "git",
